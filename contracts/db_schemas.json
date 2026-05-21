@@ -1,0 +1,180 @@
+{
+  "collections": {
+    "Provider": {
+      "fields": {
+        "provider_id": "prov_001",
+        "name": "Usman Rana",
+        "cnic": "XXXXX-XXXXXXX-X",
+        "mobile": "+92-XXX-XXXXXXX",
+        "city": "Rawalpindi",
+        "home_sector": "Saddar",
+        "service_area_sectors": [
+          "G-9",
+          "G-10",
+          "G-11",
+          "G-13",
+          "I-8"
+        ],
+        "service_categories": [
+          "AC_REPAIR",
+          "AC_INSTALLATION",
+          "AC_SERVICE"
+        ],
+        "job_complexity_max": "complex",
+        "specializations": [
+          "Split AC",
+          "Inverter AC",
+          "Daikin",
+          "Gree"
+        ],
+        "rating": 4.6,
+        "review_count": 47,
+        "recent_review_count_30d": 8,
+        "on_time_pct": 91,
+        "cancellation_rate_pct": 8,
+        "price_tier": "mid",
+        "daily_job_capacity": 4,
+        "current_load_today": 2,
+        "verified": true,
+        "verification_type": "cnic_simulated",
+        "active": true,
+        "last_active": "2026-05-17T10:00:00Z",
+        "base_rate_basic": 500,
+        "base_rate_intermediate": 900,
+        "base_rate_complex": 1800
+      }
+    },
+    "Booking": {
+      "fields": {
+        "booking_id": "KK-2026-001847",
+        "customer_id": "cust_xyz",
+        "provider_id": "prov_001",
+        "service_type": "AC_REPAIR",
+        "job_complexity": "intermediate",
+        "status": "confirmed | en_route | arrived | completed | cancelled | disputed",
+        "slot": {
+          "date": "2026-05-18",
+          "start_time": "09:00",
+          "end_time": "11:00"
+        },
+        "location": {
+          "sector": "G-13",
+          "city": "Islamabad"
+        },
+        "price_quote": {},
+        "actual_price": null,
+        "created_at": "2026-05-17T14:32:00Z",
+        "confirmed_at": "2026-05-17T14:33:47Z",
+        "completed_at": null,
+        "provider_status_log": [],
+        "customer_rating": null,
+        "customer_review": null,
+        "dispute_id": null,
+        "receipt_id": "RCP-2026-001847",
+        "updated_at": "2026-05-17T14:33:47Z",
+        "original_provider_id": null,
+        "provider_reassigned_at": null
+      }
+    },
+    "Session": {
+      "fields": {
+        "session_id": "sess_abc123",
+        "customer_id": "string",
+        "conversation_history": []
+      }
+    },
+    "JobRequest": {
+      "fields": {
+        "service_type": "AC_REPAIR",
+        "service_category": "HVAC",
+        "job_complexity": "intermediate",
+        "location": {
+          "sector": "G-13",
+          "city": "Islamabad",
+          "coordinates": null
+        },
+        "preferred_time": {
+          "date": "2026-05-18",
+          "window": "morning",
+          "time_range": [
+            "08:00",
+            "12:00"
+          ]
+        },
+        "urgency": "next_day",
+        "budget_sensitivity": "price_sensitive",
+        "constraints": [
+          "budget_conscious"
+        ],
+        "user_preferences": {},
+        "languages_detected": [
+          "roman_urdu"
+        ],
+        "confidence_score": 0.91,
+        "clarification_needed": false,
+        "clarification_question": null
+      }
+    },
+    "DisputeCase": {
+      "fields": {
+        "dispute_id": "disp_001",
+        "booking_id": "KK-2026-001847",
+        "reporter_id": "cust_xyz",
+        "reporter_type": "customer",
+        "dispute_type": "no_show",
+        "status": "open | auto_resolved | escalated | closed",
+        "evidence": {
+          "booking_record": {},
+          "provider_status_log": [],
+          "photos": []
+        },
+        "resolution": {
+          "type": "full_refund | partial_refund | re_service | credit | no_action",
+          "amount": 0,
+          "credit_issued": 200,
+          "message_urdu": "Aapka paisa wapas kar diya gaya hai..."
+        },
+        "escalated_at": null,
+        "resolved_at": "2026-05-18T10:15:00Z"
+      }
+    },
+    "ReasoningTrace": {
+      "fields": {
+        "trace_id": "trc_abc123",
+        "session_id": "sess_abc123",
+        "booking_id": "KK-2026-001847",
+        "agent": "matching_agent",
+        "timestamp": "2026-05-17T14:32:10Z",
+        "workplan": "Find and rank AC repair providers for G-13, next-day morning",
+        "task_steps": [
+          "1. Query provider DB for AC_REPAIR category",
+          "2. Apply geography filter (< 30km travel)",
+          "3. Apply availability filter (2026-05-18 morning)",
+          "4. Score remaining candidates on 8 factors",
+          "5. Return top 5 with reasoning"
+        ],
+        "observations": [
+          "Found 12 AC_REPAIR providers in Islamabad/Rawalpindi area",
+          "Geography filter: 9 within 30km travel time",
+          "Availability filter: 6 free on 2026-05-18 morning"
+        ],
+        "reasoning": "Provider prov_003 is nearest (12 min) but has 23% cancellation rate and 2 negative AC reviews in last 14 days. Provider prov_001 is 14 min away (2 min delta) with 8% cancellation rate and 4.6 rating with strong AC specialization. Multi-factor score favors prov_001 despite distance disadvantage.",
+        "decision": "Recommend prov_001 as primary; prov_002 as alternative",
+        "tool_calls": [
+          {
+            "tool": "provider_db_query",
+            "input": {},
+            "output": {}
+          },
+          {
+            "tool": "google_maps_distance_matrix",
+            "input": {},
+            "output": {}
+          }
+        ],
+        "error_recovery": null,
+        "final_outcome": "5 providers ranked; prov_001 recommended"
+      }
+    }
+  }
+}

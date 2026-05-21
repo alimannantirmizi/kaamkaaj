@@ -1,0 +1,89 @@
+{
+  "shared_error_response": {
+    "error": "string",
+    "code": "INTENT_PARSE_FAILED | NO_PROVIDERS | SLOT_CONFLICT | MAPS_API_UNAVAILABLE | BOOKING_FAILED | DISPUTE_ALREADY_FILED",
+    "message_urdu": "string | null",
+    "trace_id": "string",
+    "retry_after_ms": "number | null"
+  },
+  "endpoints": {
+    "POST /v1/session/intent": {
+      "request": {
+        "session_id": "string",
+        "customer_id": "string",
+        "input_type": "voice | text",
+        "text": "string",
+        "audio_url": "string | null",
+        "conversation_history": []
+      },
+      "response": {
+        "intent_result": "{ ... JobRequest ... }",
+        "next_action": "show_providers | ask_clarification | show_service_cards",
+        "clarification_question": "string | null",
+        "service_cards": "[] | null",
+        "trace_id": "string"
+      }
+    },
+    "POST /v1/session/match": {
+      "request": {
+        "session_id": "string",
+        "job_request": "{ ... }",
+        "customer_id": "string"
+      },
+      "response": {
+        "providers": "[ ... ProviderCard ... ]",
+        "price_quotes": {
+          "provider_id": "PriceQuote"
+        },
+        "trace_id": "string"
+      }
+    },
+    "POST /v1/session/book": {
+      "request": {
+        "session_id": "string",
+        "customer_id": "string",
+        "provider_id": "string",
+        "job_request": "{ ... }",
+        "price_quote": "{ ... }"
+      },
+      "response": {
+        "booking": "{ ... BookingConfirmation ... }",
+        "trace_id": "string"
+      }
+    },
+    "POST /v1/dispute/raise": {
+      "request": {
+        "booking_id": "string",
+        "reporter_id": "string",
+        "reporter_type": "customer | provider",
+        "dispute_type": "no_show | quality | price | overrun | cancellation",
+        "description": "string",
+        "photo_urls": []
+      },
+      "response": {
+        "dispute_id": "string",
+        "status": "auto_resolved | escalated",
+        "resolution": "{ ... }",
+        "trace_id": "string"
+      }
+    },
+    "POST /v1/provider/job-response": {
+      "request": {
+        "provider_id": "string",
+        "job_id": "string",
+        "action": "accept | decline"
+      },
+      "response": {}
+    },
+    "POST /v1/provider/status-update": {
+      "request": {
+        "provider_id": "string",
+        "booking_id": "string",
+        "status": "en_route | arrived | in_progress | completed | cancelled",
+        "location": "{ \"lat\": number, \"lng\": number } | null",
+        "photo_urls": "[] | null"
+      },
+      "response": {}
+    }
+  }
+}
